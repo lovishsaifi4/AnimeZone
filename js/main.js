@@ -794,14 +794,200 @@ function displayWatchlist() {
   });
 }
 
-// Hide preloader
-function hidePreloader() {
+// Enhanced Preloader Animation System
+function initializePreloader() {
   const preloader = document.querySelector('.preloader');
-  if (preloader) {
-    setTimeout(() => {
+  if (!preloader) return;
+
+  // Create particles
+  createParticles();
+  
+  // Create GSAP timeline for orchestrated animations
+  const tl = gsap.timeline();
+  
+  // Stage 1: Wave crash-in (0-1.5s)
+  tl.to('.wave-1, .wave-2, .wave-3, .wave-4', {
+    opacity: 1,
+    scale: 1,
+    rotation: 180,
+    duration: 1.5,
+    stagger: 0.3,
+    ease: "power2.out"
+  })
+  
+  // Stage 2: Energy rings activation (1s-2.5s)
+  .to('.energy-ring-1, .energy-ring-2, .energy-ring-3', {
+    opacity: 0.6,
+    scale: 1.2,
+    duration: 1.5,
+    stagger: 0.5,
+    ease: "power2.inOut"
+  }, 1)
+  
+  // Stage 3: Logo materialization (1.5s-2.5s)
+  .to('.preloader-logo', {
+    opacity: 1,
+    scale: 1,
+    duration: 1,
+    ease: "back.out(1.7)"
+  }, 1.5)
+  
+  // Stage 4: Subtitle appearance (2s-2.8s)
+  .to('.preloader-subtitle', {
+    opacity: 1,
+    duration: 0.8,
+    ease: "power2.out"
+  }, 2)
+  
+  // Stage 5: Progress bar and loading text (2.3s-3.5s)
+  .to('.loading-progress', {
+    opacity: 1,
+    duration: 0.5,
+    ease: "power2.out"
+  }, 2.3)
+  .to('.loading-text', {
+    opacity: 1,
+    duration: 0.5,
+    ease: "power2.out"
+  }, 2.5)
+  
+  // Stage 6: Screen flash effect (3.2s)
+  .to('.screen-flash', {
+    opacity: 0.8,
+    duration: 0.2,
+    ease: "power2.inOut",
+    yoyo: true,
+    repeat: 1
+  }, 3.2)
+  
+  // Stage 7: Final sweep and fade out (3.5s-4.5s)
+  .to('.final-sweep', {
+    left: '100%',
+    opacity: 1,
+    duration: 1,
+    ease: "power2.inOut"
+  }, 3.5)
+  .to('.preloader', {
+    opacity: 0,
+    duration: 0.5,
+    ease: "power2.out",
+    onComplete: () => {
       preloader.classList.add('hidden');
-    }, 1000);
+      // Trigger main content animations
+      initializeMainContentAnimations();
+    }
+  }, 4);
+
+  // Animate particles throughout
+  animateParticles();
+}
+
+// Create particle system
+function createParticles() {
+  const particlesContainer = document.querySelector('.particles-container');
+  if (!particlesContainer) return;
+
+  const particleCount = 50;
+  
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    
+    // Random positioning
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.top = Math.random() * 100 + '%';
+    
+    // Random size variation
+    const size = Math.random() * 6 + 2;
+    particle.style.width = size + 'px';
+    particle.style.height = size + 'px';
+    
+    particlesContainer.appendChild(particle);
   }
+}
+
+// Animate particles
+function animateParticles() {
+  const particles = document.querySelectorAll('.particle');
+  
+  particles.forEach((particle, index) => {
+    // Staggered appearance
+    gsap.to(particle, {
+      opacity: Math.random() * 0.8 + 0.2,
+      duration: 0.5,
+      delay: index * 0.05,
+      ease: "power2.out"
+    });
+    
+    // Floating animation
+    gsap.to(particle, {
+      x: (Math.random() - 0.5) * 200,
+      y: (Math.random() - 0.5) * 200,
+      rotation: Math.random() * 360,
+      duration: Math.random() * 3 + 2,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+      delay: Math.random() * 2
+    });
+    
+    // Pulsing glow effect
+    gsap.to(particle, {
+      scale: Math.random() * 0.5 + 0.8,
+      duration: Math.random() * 2 + 1,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+      delay: Math.random() * 1
+    });
+  });
+}
+
+// Initialize main content animations after preloader
+function initializeMainContentAnimations() {
+  // Hero text animation with enhanced effects
+  const heroTl = gsap.timeline();
+  
+  heroTl.from(".hero h1", {
+    duration: 1.2,
+    y: 80,
+    opacity: 0,
+    scale: 0.8,
+    ease: "back.out(1.7)"
+  })
+  .from(".hero p", {
+    duration: 1,
+    y: 50,
+    opacity: 0,
+    ease: "power2.out"
+  }, 0.3)
+  .from(".search-container", {
+    duration: 1,
+    y: 50,
+    opacity: 0,
+    scale: 0.9,
+    ease: "back.out(1.7)"
+  }, 0.6)
+  .from(".hero-actions", {
+    duration: 1,
+    y: 50,
+    opacity: 0,
+    ease: "power2.out"
+  }, 0.9)
+  .from(".floating-element", {
+    duration: 1.5,
+    scale: 0,
+    opacity: 0,
+    stagger: 0.2,
+    ease: "back.out(1.7)"
+  }, 1.2);
+}
+
+// Hide preloader (enhanced version)
+function hidePreloader() {
+  // This function is now handled by the GSAP timeline
+  // but kept for compatibility
+  initializePreloader();
 }
 
 // Utility functions
