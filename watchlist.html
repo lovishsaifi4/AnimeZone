@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Watchlist - AnimeZone</title>
+    <meta name="description" content="Manage your anime watchlist. Keep track of what you're watching, completed, and plan to watch.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Sortable.js for drag and drop -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+</head>
+<body class="no-select">
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-content">
+            <div class="preloader-logo">AnimeZone</div>
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">AnimeZone</a>
+            <ul class="nav-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="browse.html"><i class="fas fa-th-large"></i> Browse</a></li>
+                <li><a href="watchlist.html"><i class="fas fa-bookmark"></i> Watchlist</a></li>
+                <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main style="margin-top: 80px; padding: 2rem 0;">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header" style="text-align: center; margin-bottom: 3rem;">
+                <h1 class="title-glitch" data-text="My Watchlist" style="font-size: 3rem; margin-bottom: 1rem;">My Watchlist</h1>
+                <p style="color: var(--text-secondary); font-size: 1.2rem;">Organize and track your anime journey</p>
+            </div>
+
+            <!-- Watchlist Stats -->
+            <div class="watchlist-stats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+                <div class="stat-card" style="background: var(--secondary-bg); padding: 2rem; border-radius: 15px; text-align: center; border: 1px solid var(--border-color);">
+                    <div style="font-size: 2.5rem; color: var(--neon-cyan); margin-bottom: 1rem;">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <h3 id="watching-count" style="font-size: 2rem; margin-bottom: 0.5rem;">0</h3>
+                    <p style="color: var(--text-secondary);">Currently Watching</p>
+                </div>
+                
+                <div class="stat-card" style="background: var(--secondary-bg); padding: 2rem; border-radius: 15px; text-align: center; border: 1px solid var(--border-color);">
+                    <div style="font-size: 2.5rem; color: var(--cursed-purple); margin-bottom: 1rem;">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3 id="completed-count" style="font-size: 2rem; margin-bottom: 0.5rem;">0</h3>
+                    <p style="color: var(--text-secondary);">Completed</p>
+                </div>
+                
+                <div class="stat-card" style="background: var(--secondary-bg); padding: 2rem; border-radius: 15px; text-align: center; border: 1px solid var(--border-color);">
+                    <div style="font-size: 2.5rem; color: var(--neon-crimson); margin-bottom: 1rem;">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 id="plan-to-watch-count" style="font-size: 2rem; margin-bottom: 0.5rem;">0</h3>
+                    <p style="color: var(--text-secondary);">Plan to Watch</p>
+                </div>
+                
+                <div class="stat-card" style="background: var(--secondary-bg); padding: 2rem; border-radius: 15px; text-align: center; border: 1px solid var(--border-color);">
+                    <div style="font-size: 2.5rem; color: var(--neon-cyan); margin-bottom: 1rem;">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 id="total-episodes" style="font-size: 2rem; margin-bottom: 0.5rem;">0</h3>
+                    <p style="color: var(--text-secondary);">Episodes Watched</p>
+                </div>
+            </div>
+
+            <!-- Watchlist Tabs -->
+            <div class="watchlist-tabs" style="display: flex; gap: 1rem; margin-bottom: 3rem; justify-content: center; flex-wrap: wrap;">
+                <button class="tab-btn active" data-tab="watching" style="padding: 1rem 2rem; background: var(--neon-cyan); color: var(--primary-bg); border: none; border-radius: 25px; cursor: pointer; font-weight: 600; transition: var(--transition);">
+                    <i class="fas fa-play"></i> Watching
+                </button>
+                <button class="tab-btn" data-tab="completed" style="padding: 1rem 2rem; background: var(--accent-bg); color: var(--text-primary); border: none; border-radius: 25px; cursor: pointer; font-weight: 600; transition: var(--transition);">
+                    <i class="fas fa-check-circle"></i> Completed
+                </button>
+                <button class="tab-btn" data-tab="planToWatch" style="padding: 1rem 2rem; background: var(--accent-bg); color: var(--text-primary); border: none; border-radius: 25px; cursor: pointer; font-weight: 600; transition: var(--transition);">
+                    <i class="fas fa-clock"></i> Plan to Watch
+                </button>
+            </div>
+
+            <!-- Watchlist Sections -->
+            <div class="watchlist-content">
+                <!-- Currently Watching -->
+                <div class="watchlist-section watching-section active" data-category="watching">
+                    <div class="watchlist-header">
+                        <h2 style="color: var(--neon-cyan); margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;">
+                            <i class="fas fa-play"></i> Currently Watching
+                        </h2>
+                        <p style="color: var(--text-secondary); margin-bottom: 2rem;">Anime you're actively watching</p>
+                    </div>
+                    <div class="watching-list watchlist-items" id="watching-list">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Completed -->
+                <div class="watchlist-section completed-section" data-category="completed" style="display: none;">
+                    <div class="watchlist-header">
+                        <h2 style="color: var(--cursed-purple); margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;">
+                            <i class="fas fa-check-circle"></i> Completed
+                        </h2>
+                        <p style="color: var(--text-secondary); margin-bottom: 2rem;">Anime you've finished watching</p>
+                    </div>
+                    <div class="completed-list watchlist-items" id="completed-list">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Plan to Watch -->
+                <div class="watchlist-section plan-to-watch-section" data-category="planToWatch" style="display: none;">
+                    <div class="watchlist-header">
+                        <h2 style="color: var(--neon-crimson); margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;">
+                            <i class="fas fa-clock"></i> Plan to Watch
+                        </h2>
+                        <p style="color: var(--text-secondary); margin-bottom: 2rem;">Anime you want to watch later</p>
+                    </div>
+                    <div class="plan-to-watch-list watchlist-items" id="planToWatch-list">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" style="text-align: center; padding: 4rem 2rem; display: none;">
+                <div style="font-size: 4rem; color: var(--text-muted); margin-bottom: 2rem;">
+                    <i class="fas fa-bookmark"></i>
+                </div>
+                <h3 style="margin-bottom: 1rem; color: var(--text-secondary);">Your watchlist is empty</h3>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">Start building your anime collection by browsing our catalog</p>
+                <a href="browse.html" class="btn">
+                    <i class="fas fa-search"></i> Browse Anime
+                </a>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions" style="position: fixed; bottom: 2rem; right: 2rem; display: flex; flex-direction: column; gap: 1rem; z-index: 100;">
+                <button class="quick-action-btn" onclick="exportWatchlist()" style="width: 60px; height: 60px; border-radius: 50%; background: var(--cursed-purple); border: none; color: white; cursor: pointer; box-shadow: 0 4px 20px rgba(130, 71, 229, 0.3); transition: var(--transition);" title="Export Watchlist">
+                    <i class="fas fa-download"></i>
+                </button>
+                <button class="quick-action-btn" onclick="importWatchlist()" style="width: 60px; height: 60px; border-radius: 50%; background: var(--neon-cyan); border: none; color: var(--primary-bg); cursor: pointer; box-shadow: 0 4px 20px rgba(0, 255, 255, 0.3); transition: var(--transition);" title="Import Watchlist">
+                    <i class="fas fa-upload"></i>
+                </button>
+                <button class="quick-action-btn" onclick="clearWatchlist()" style="width: 60px; height: 60px; border-radius: 50%; background: var(--neon-crimson); border: none; color: white; cursor: pointer; box-shadow: 0 4px 20px rgba(255, 0, 85, 0.3); transition: var(--transition);" title="Clear All">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                <div>
+                    <h3 style="color: var(--neon-cyan); margin-bottom: 1rem;">AnimeZone</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.6;">Your ultimate destination for streaming the latest anime episodes. Experience the world of anime with cursed energy.</p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1rem;">Quick Links</h4>
+                    <ul style="list-style: none; color: var(--text-secondary);">
+                        <li style="margin-bottom: 0.5rem;"><a href="browse.html" style="color: inherit; text-decoration: none;">Browse Anime</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="watchlist.html" style="color: inherit; text-decoration: none;">My Watchlist</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="about.html" style="color: inherit; text-decoration: none;">About Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1rem;">Community</h4>
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="https://t.me/VengeanceSeekers" target="_blank" style="color: var(--neon-cyan); font-size: 1.5rem; transition: var(--transition);">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="https://t.me/Hellfirez3643" target="_blank" style="color: var(--neon-cyan); font-size: 1.5rem; transition: var(--transition);">
+                            <i class="fas fa-user"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div style="border-top: 1px solid var(--border-color); padding-top: 2rem; text-align: center;">
+                <p style="color: var(--text-secondary);">
+                    © 2025 AnimeZone — Crafted with cursed energy by 
+                    <a href="https://t.me/Hellfirez3643" target="_blank" style="color: var(--neon-cyan);">@Hellfirez3643</a> | 
+                    Community: <a href="https://t.me/VengeanceSeekers" target="_blank" style="color: var(--neon-cyan);">@VengeanceSeekers</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    
+    <script>
+        // Tab switching functionality
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.dataset.tab;
+                
+                // Update active tab button
+                document.querySelectorAll('.tab-btn').forEach(b => {
+                    b.classList.remove('active');
+                    b.style.background = 'var(--accent-bg)';
+                    b.style.color = 'var(--text-primary)';
+                });
+                
+                btn.classList.add('active');
+                btn.style.background = 'var(--neon-cyan)';
+                btn.style.color = 'var(--primary-bg)';
+                
+                // Show corresponding section
+                document.querySelectorAll('.watchlist-section').forEach(section => {
+                    section.style.display = 'none';
+                });
+                
+                document.querySelector(\`.${tab}-section\`).style.display = 'block';
+                
+                // Update empty state
+                updateEmptyState();
+            });
+        });
+        
+        // Enhanced watchlist card creation
+        function createWatchlistCard(anime, category) {
+            const watchHistory = JSON.parse(localStorage.getItem('watchHistory')) || {};
+            const watchedEpisodes = JSON.parse(localStorage.getItem('watchedEpisodes')) || {};
+            const progress = watchHistory[anime.id] || {};
+            const episodesWatched = watchedEpisodes[anime.id] || [];
+            
+            return \`
+                <div class="watchlist-card" data-anime-id="${anime.id}" style="background: var(--secondary-bg); border-radius: 15px; overflow: hidden; transition: var(--transition); cursor: pointer; border: 1px solid var(--border-color); position: relative;">
+                    <div class="card-image" style="position: relative; overflow: hidden;">
+                        <img src="${anime.poster}" alt="${anime.title}" style="width: 100%; height: 250px; object-fit: cover; transition: var(--transition);">
+                        <div class="card-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); opacity: 0; transition: var(--transition); display: flex; align-items: end; padding: 1rem;">
+                            <div class="overlay-actions" style="display: flex; gap: 0.5rem; width: 100%;">
+                                <button onclick="goToAnime('${anime.id}')" class="btn" style="flex: 1; padding: 0.5rem;">
+                                    <i class="fas fa-info"></i> Details
+                                </button>
+                                <button onclick="removeFromWatchlist('${anime.id}', '${category}')" class="btn btn-secondary" style="padding: 0.5rem;">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        ${category === 'watching' && progress.lastEpisode ? \`
+                            <div class="progress-indicator" style="position: absolute; top: 1rem; right: 1rem; background: var(--neon-cyan); color: var(--primary-bg); padding: 0.25rem 0.5rem; border-radius: 15px; font-size: 0.8rem; font-weight: 600;">
+                                EP ${progress.lastEpisode}
+                            </div>
+                        \` : ''}
+                        ${category === 'completed' ? \`
+                            <div class="completed-badge" style="position: absolute; top: 1rem; right: 1rem; background: var(--cursed-purple); color: white; padding: 0.25rem 0.5rem; border-radius: 15px; font-size: 0.8rem; font-weight: 600;">
+                                <i class="fas fa-check"></i> Complete
+                            </div>
+                        \` : ''}
+                    </div>
+                    
+                    <div class="card-content" style="padding: 1.5rem;">
+                        <h3 style="margin-bottom: 0.5rem; color: var(--text-primary); font-size: 1.1rem;">${anime.title}</h3>
+                        <div class="card-meta" style="display: flex; gap: 1rem; margin-bottom: 1rem; font-size: 0.9rem; color: var(--text-muted);">
+                            <span>${anime.year}</span>
+                            <span>★ ${anime.rating}</span>
+                            <span>${anime.status}</span>
+                        </div>
+                        
+                        ${category === 'watching' ? \`
+                            <div class="watch-progress" style="margin-bottom: 1rem;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                    <span style="color: var(--text-secondary); font-size: 0.9rem;">Progress</span>
+                                    <span style="color: var(--neon-cyan); font-size: 0.9rem;">${episodesWatched.length}/${anime.episodes.length}</span>
+                                </div>
+                                <div class="progress-bar" style="width: 100%; height: 4px; background: var(--accent-bg); border-radius: 2px; overflow: hidden;">
+                                    <div style="height: 100%; background: linear-gradient(90deg, var(--neon-cyan), var(--cursed-purple)); width: ${(episodesWatched.length / anime.episodes.length) * 100}%; transition: width 0.3s ease;"></div>
+                                </div>
+                            </div>
+                            <div class="quick-actions" style="display: flex; gap: 0.5rem;">
+                                <button onclick="continueWatching('${anime.id}')" class="btn" style="flex: 1; padding: 0.5rem; font-size: 0.9rem;">
+                                    <i class="fas fa-play"></i> Continue
+                                </button>
+                                <button onclick="moveToCategory('${anime.id}', 'completed')" class="btn btn-secondary" style="padding: 0.5rem; font-size: 0.9rem;">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </div>
+                        \` : category === 'planToWatch' ? \`
+                            <div class="quick-actions" style="display: flex; gap: 0.5rem;">
+                                <button onclick="startWatching('${anime.id}')" class="btn" style="flex: 1; padding: 0.5rem; font-size: 0.9rem;">
+                                    <i class="fas fa-play"></i> Start Watching
+                                </button>
+                                <button onclick="moveToCategory('${anime.id}', 'watching')" class="btn btn-secondary" style="padding: 0.5rem; font-size: 0.9rem;">
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        \` : \`
+                            <div class="quick-actions" style="display: flex; gap: 0.5rem;">
+                                <button onclick="rewatchAnime('${anime.id}')" class="btn" style="flex: 1; padding: 0.5rem; font-size: 0.9rem;">
+                                    <i class="fas fa-redo"></i> Rewatch
+                                </button>
+                                <button onclick="goToAnime('${anime.id}')" class="btn btn-secondary" style="padding: 0.5rem; font-size: 0.9rem;">
+                                    <i class="fas fa-info"></i>
+                                </button>
+                            </div>
+                        \`}
+                        
+                        <div class="genre-tags" style="margin-top: 1rem;">
+                            ${anime.genre.slice(0, 2).map(g => \`<span class="genre-tag" style="font-size: 0.7rem;">${g}</span>\`).join('')}
+                        </div>
+                    </div>
+                </div>
+            \`;
+        }
+        
+        // Enhanced watchlist functions
+        function continueWatching(animeId) {
+            const watchHistory = JSON.parse(localStorage.getItem('watchHistory')) || {};
+            const lastEpisode = watchHistory[animeId]?.lastEpisode || 1;
+            window.location.href = \`watch.html?id=${animeId}&ep=${lastEpisode}\`;
+        }
+        
+        function startWatching(animeId) {
+            window.location.href = \`watch.html?id=${animeId}&ep=1\`;
+        }
+        
+        function rewatchAnime(animeId) {
+            if (confirm('Start rewatching from episode 1?')) {
+                // Clear watch history for this anime
+                const watchHistory = JSON.parse(localStorage.getItem('watchHistory')) || {};
+                const watchedEpisodes = JSON.parse(localStorage.getItem('watchedEpisodes')) || {};
+                delete watchHistory[animeId];
+                delete watchedEpisodes[animeId];
+                localStorage.setItem('watchHistory', JSON.stringify(watchHistory));
+                localStorage.setItem('watchedEpisodes', JSON.stringify(watchedEpisodes));
+                
+                // Move to watching and start episode 1
+                moveToCategory(animeId, 'watching');
+                window.location.href = \`watch.html?id=${animeId}&ep=1\`;
+            }
+        }
+        
+        function moveToCategory(animeId, newCategory) {
+            // Remove from all categories
+            Object.keys(watchlist).forEach(cat => {
+                watchlist[cat] = watchlist[cat].filter(id => id !== animeId);
+            });
+            
+            // Add to new category
+            if (!watchlist[newCategory].includes(animeId)) {
+                watchlist[newCategory].push(animeId);
+            }
+            
+            // Save and refresh
+            localStorage.setItem('watchlist', JSON.stringify(watchlist));
+            displayWatchlist();
+            updateStats();
+        }
+        
+        function removeFromWatchlist(animeId, category) {
+            if (confirm('Remove this anime from your watchlist?')) {
+                watchlist[category] = watchlist[category].filter(id => id !== animeId);
+                localStorage.setItem('watchlist', JSON.stringify(watchlist));
+                displayWatchlist();
+                updateStats();
+            }
+        }
+        
+        // Update stats
+        function updateStats() {
+            document.getElementById('watching-count').textContent = watchlist.watching.length;
+            document.getElementById('completed-count').textContent = watchlist.completed.length;
+            document.getElementById('plan-to-watch-count').textContent = watchlist.planToWatch.length;
+            
+            // Calculate total episodes watched
+            const watchedEpisodes = JSON.parse(localStorage.getItem('watchedEpisodes')) || {};
+            let totalEpisodes = 0;
+            Object.values(watchedEpisodes).forEach(episodes => {
+                totalEpisodes += episodes.length;
+            });
+            document.getElementById('total-episodes').textContent = totalEpisodes;
+        }
+        
+        // Update empty state
+        function updateEmptyState() {
+            const activeSection = document.querySelector('.watchlist-section:not([style*="display: none"])');
+            const activeList = activeSection.querySelector('.watchlist-items');
+            const emptyState = document.querySelector('.empty-state');
+            
+            if (activeList.children.length === 0) {
+                emptyState.style.display = 'block';
+            } else {
+                emptyState.style.display = 'none';
+            }
+        }
+        
+        // Quick action functions
+        function exportWatchlist() {
+            const data = {
+                watchlist: watchlist,
+                watchHistory: JSON.parse(localStorage.getItem('watchHistory')) || {},
+                watchedEpisodes: JSON.parse(localStorage.getItem('watchedEpisodes')) || {},
+                exportDate: new Date().toISOString()
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = \`animezone-watchlist-${new Date().toISOString().split('T')[0]}.json\`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        function importWatchlist() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        try {
+                            const data = JSON.parse(e.target.result);
+                            if (data.watchlist) {
+                                localStorage.setItem('watchlist', JSON.stringify(data.watchlist));
+                                if (data.watchHistory) {
+                                    localStorage.setItem('watchHistory', JSON.stringify(data.watchHistory));
+                                }
+                                if (data.watchedEpisodes) {
+                                    localStorage.setItem('watchedEpisodes', JSON.stringify(data.watchedEpisodes));
+                                }
+                                location.reload();
+                            }
+                        } catch (error) {
+                            alert('Invalid file format');
+                        }
+                    };
+                    reader.readAsText(file);
+                }
+            };
+            input.click();
+        }
+        
+        function clearWatchlist() {
+            if (confirm('Are you sure you want to clear your entire watchlist? This action cannot be undone.')) {
+                localStorage.removeItem('watchlist');
+                localStorage.removeItem('watchHistory');
+                localStorage.removeItem('watchedEpisodes');
+                location.reload();
+            }
+        }
+        
+        // Initialize drag and drop
+        document.addEventListener('animeDataLoaded', () => {
+            setTimeout(() => {
+                ['watching', 'completed', 'planToWatch'].forEach(category => {
+                    const list = document.getElementById(\`${category}-list\`);
+                    if (list) {
+                        new Sortable(list, {
+                            group: 'watchlist',
+                            animation: 150,
+                            onEnd: function(evt) {
+                                // Update watchlist order
+                                const newOrder = Array.from(evt.to.children).map(card => card.dataset.animeId);
+                                const targetCategory = evt.to.id.replace('-list', '');
+                                watchlist[targetCategory] = newOrder;
+                                localStorage.setItem('watchlist', JSON.stringify(watchlist));
+                                updateStats();
+                            }
+                        });
+                    }
+                });
+            }, 1000);
+        });
+        
+        // Enhanced card hover effects
+        document.addEventListener('animeDataLoaded', () => {
+            setTimeout(() => {
+                const style = document.createElement('style');
+                style.textContent = \`
+                    .watchlist-card:hover {
+                        transform: translateY(-5px);
+                        box-shadow: 0 15px 30px rgba(0, 255, 255, 0.2);
+                        border-color: var(--neon-cyan);
+                    }
+                    
+                    .watchlist-card:hover .card-overlay {
+                        opacity: 1;
+                    }
+                    
+                    .watchlist-card:hover img {
+                        transform: scale(1.05);
+                    }
+                    
+                    .quick-action-btn:hover {
+                        transform: scale(1.1);
+                    }
+                \`;
+                document.head.appendChild(style);
+            }, 100);
+        });
+        
+        // Initialize on load
+        document.addEventListener('animeDataLoaded', () => {
+            updateStats();
+            updateEmptyState();
+        });
+    </script>
+    
+    <!-- Responsive CSS -->
+    <style>
+        @media (max-width: 768px) {
+            .watchlist-stats {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+            
+            .watchlist-tabs {
+                flex-direction: column !important;
+                align-items: stretch !important;
+            }
+            
+            .tab-btn {
+                text-align: center !important
+```
+
+
+Let me fix the incomplete watchlist.html file:
+```python
+
+watchlist_html_content = """<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Watchlist - AnimeZone</title>
+    <meta name="description" content="Manage your anime watchlist. Keep track of what you're watching, completed, and plan to watch.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Sortable.js for drag and drop -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+</head>
+<body class="no-select">
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-content">
+            <div class="preloader-logo">AnimeZone</div>
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">AnimeZone</a>
+            <ul class="nav-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="browse.html"><i class="fas fa-th-large"></i> Browse</a></li>
+                <li><a href="watchlist.html"><i class="fas fa-bookmark"></i> Watchlist</a></li>
+                <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main style="margin-top: 80px; padding: 2rem 0;">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header" style="text-align: center; margin-bottom: 3rem;">
+                <h1 class="title-glitch" data-text="My Watchlist" style="font-size: 3rem; margin-bottom: 1rem;">My Watchlist</h1>
+                <p style="color: var(--text-secondary); font-size: 1.2rem;">Organize and track your anime journey</p>
+            </div>
+
+            <!-- Watchlist Stats -->
+            <div class="watchlist-stats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+                <div class="stat-card" style="background: var(--secondary-bg); padding: 2rem; border-radius: 15px; text-align: center; border: 1px solid var(--border-color);">
+                    <div style="font-size: 2.5rem; color: var(--neon-cyan); margin-bottom: 1rem;">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <h3 id="watching-count" style="font-size: 2rem; margin-bottom: 0.5rem;">0</h3>
+                    <p style="color: var(--text-secondary);">Currently Watching</p>
+                </div>
+                
+                <div class="stat-card" style="background: var(--secondary-bg); padding: 2rem; border-radius: 15px; text-align: center; border: 1px solid var(--border-color);">
+                    <div style="font-size: 2.5rem; color: var(--cursed-purple); margin-bottom: 1rem;">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3 id="completed-count" style="font-size: 2rem; margin-bottom: 0.5rem;">0</h3>
+                    <p style="color: var(--text-secondary);">Completed</p>
+                </div>
+                
+                <div class="stat-card" style="background: var(--secondary-bg); padding: 2rem; border-radius: 15px; text-align: center; border: 1px solid var(--border-color);">
+                    <div style="font-size: 2.5rem; color: var(--neon-crimson); margin-bottom: 1rem;">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 id="plan-to-watch-count" style="font-size: 2rem; margin-bottom: 0.5rem;">0</h3>
+                    <p style="color: var(--text-secondary);">Plan to Watch</p>
+                </div>
+                
+                <div class="stat-card" style="background: var(--secondary-bg); padding: 2rem; border-radius: 15px; text-align: center; border: 1px solid var(--border-color);">
+                    <div style="font-size: 2.5rem; color: var(--neon-cyan); margin-bottom: 1rem;">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 id="total-episodes" style="font-size: 2rem; margin-bottom: 0.5rem;">0</h3>
+                    <p style="color: var(--text-secondary);">Episodes Watched</p>
+                </div>
+            </div>
+
+            <!-- Watchlist Tabs -->
+            <div class="watchlist-tabs" style="display: flex; gap: 1rem; margin-bottom: 3rem; justify-content: center; flex-wrap: wrap;">
+                <button class="tab-btn active" data-tab="watching" style="padding: 1rem 2rem; background: var(--neon-cyan); color: var(--primary-bg); border: none; border-radius: 25px; cursor: pointer; font-weight: 600; transition: var(--transition);">
+                    <i class="fas fa-play"></i> Watching
+                </button>
+                <button class="tab-btn" data-tab="completed" style="padding: 1rem 2rem; background: var(--accent-bg); color: var(--text-primary); border: none; border-radius: 25px; cursor: pointer; font-weight: 600; transition: var(--transition);">
+                    <i class="fas fa-check-circle"></i> Completed
+                </button>
+                <button class="tab-btn" data-tab="planToWatch" style="padding: 1rem 2rem; background: var(--accent-bg); color: var(--text-primary); border: none; border-radius: 25px; cursor: pointer; font-weight: 600; transition: var(--transition);">
+                    <i class="fas fa-clock"></i> Plan to Watch
+                </button>
+            </div>
+
+            <!-- Watchlist Sections -->
+            <div class="watchlist-content">
+                <!-- Currently Watching -->
+                <div class="watchlist-section watching-section active" data-category="watching">
+                    <div class="watchlist-header">
+                        <h2 style="color: var(--neon-cyan); margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;">
+                            <i class="fas fa-play"></i> Currently Watching
+                        </h2>
+                        <p style="color: var(--text-secondary); margin-bottom: 2rem;">Anime you're actively watching</p>
+                    </div>
+                    <div class="watching-list watchlist-items" id="watching-list">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Completed -->
+                <div class="watchlist-section completed-section" data-category="completed" style="display: none;">
+                    <div class="watchlist-header">
+                        <h2 style="color: var(--cursed-purple); margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;">
+                            <i class="fas fa-check-circle"></i> Completed
+                        </h2>
+                        <p style="color: var(--text-secondary); margin-bottom: 2rem;">Anime you've finished watching</p>
+                    </div>
+                    <div class="completed-list watchlist-items" id="completed-list">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Plan to Watch -->
+                <div class="watchlist-section plan-to-watch-section" data-category="planToWatch" style="display: none;">
+                    <div class="watchlist-header">
+                        <h2 style="color: var(--neon-crimson); margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;">
+                            <i class="fas fa-clock"></i> Plan to Watch
+                        </h2>
+                        <p style="color: var(--text-secondary); margin-bottom: 2rem;">Anime you want to watch later</p>
+                    </div>
+                    <div class="plan-to-watch-list watchlist-items" id="planToWatch-list">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" style="text-align: center; padding: 4rem 2rem; display: none;">
+                <div style="font-size: 4rem; color: var(--text-muted); margin-bottom: 2rem;">
+                    <i class="fas fa-bookmark"></i>
+                </div>
+                <h3 style="margin-bottom: 1rem; color: var(--text-secondary);">Your watchlist is empty</h3>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">Start building your anime collection by browsing our catalog</p>
+                <a href="browse.html" class="btn">
+                    <i class="fas fa-search"></i> Browse Anime
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                <div>
+                    <h3 style="color: var(--neon-cyan); margin-bottom: 1rem;">AnimeZone</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.6;">Your ultimate destination for streaming the latest anime episodes. Experience the world of anime with cursed energy.</p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1rem;">Quick Links</h4>
+                    <ul style="list-style: none; color: var(--text-secondary);">
+                        <li style="margin-bottom: 0.5rem;"><a href="browse.html" style="color: inherit; text-decoration: none;">Browse Anime</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="watchlist.html" style="color: inherit; text-decoration: none;">My Watchlist</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="about.html" style="color: inherit; text-decoration: none;">About Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1rem;">Community</h4>
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="https://t.me/VengeanceSeekers" target="_blank" style="color: var(--neon-cyan); font-size: 1.5rem; transition: var(--transition);">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="https://t.me/Hellfirez3643" target="_blank" style="color: var(--neon-cyan); font-size: 1.5rem; transition: var(--transition);">
+                            <i class="fas fa-user"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div style="border-top: 1px solid var(--border-color); padding-top: 2rem; text-align: center;">
+                <p style="color: var(--text-secondary);">
+                    © 2025 AnimeZone — Crafted with cursed energy by 
+                    <a href="https://t.me/Hellfirez3643" target="_blank" style="color: var(--neon-cyan);">@Hellfirez3643</a> | 
+                    Community: <a href="https://t.me/VengeanceSeekers" target="_blank" style="color: var(--neon-cyan);">@VengeanceSeekers</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    
+    <script>
+        // Tab switching functionality
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.dataset.tab;
+                
+                // Update active tab button
+                document.querySelectorAll('.tab-btn').forEach(b => {
+                    b.classList.remove('active');
+                    b.style.background = 'var(--accent-bg)';
+                    b.style.color = 'var(--text-primary)';
+                });
+                
+                btn.classList.add('active');
+                btn.style.background = 'var(--neon-cyan)';
+                btn.style.color = 'var(--primary-bg)';
+                
+                // Show corresponding section
+                document.querySelectorAll('.watchlist-section').forEach(section => {
+                    section.style.display = 'none';
+                });
+                
+                document.querySelector('.' + tab + '-section').style.display = 'block';
+            });
+        });
+        
+        // Update stats
+        function updateStats() {
+            document.getElementById('watching-count').textContent = watchlist.watching.length;
+            document.getElementById('completed-count').textContent = watchlist.completed.length;
+            document.getElementById('plan-to-watch-count').textContent = watchlist.planToWatch.length;
+            
+            // Calculate total episodes watched
+            const watchedEpisodes = JSON.parse(localStorage.getItem('watchedEpisodes')) || {};
+            let totalEpisodes = 0;
+            Object.values(watchedEpisodes).forEach(episodes => {
+                totalEpisodes += episodes.length;
+            });
+            document.getElementById('total-episodes').textContent = totalEpisodes;
+        }
+        
+        // Initialize on load
+        document.addEventListener('animeDataLoaded', () => {
+            updateStats();
+        });
+    </script>
+    
+    <!-- Responsive CSS -->
+    <style>
+        @media (max-width: 768px) {
+            .watchlist-stats {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+            
+            .watchlist-tabs {
+                flex-direction: column !important;
+                align-items: stretch !important;
+            }
+        }
+    </style>
+</body>
+</html>

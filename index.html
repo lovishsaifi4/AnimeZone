@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnimeZone - Stream Your Favorite Anime</title>
+    <meta name="description" content="Watch the latest anime episodes online. Stream Jujutsu Kaisen, Attack on Titan, Demon Slayer and more.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body class="no-select">
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-content">
+            <div class="preloader-logo">AnimeZone</div>
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">AnimeZone</a>
+            <ul class="nav-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="browse.html"><i class="fas fa-th-large"></i> Browse</a></li>
+                <li><a href="watchlist.html"><i class="fas fa-bookmark"></i> Watchlist</a></li>
+                <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="title-glitch" data-text="AnimeZone">AnimeZone</h1>
+            <p>Immerse yourself in the world of anime. Stream the latest episodes with cursed energy.</p>
+            
+            <!-- Search Bar -->
+            <div class="search-container">
+                <input type="text" class="search-bar" placeholder="Search anime, genres..." autocomplete="off">
+                <div class="search-results"></div>
+            </div>
+            
+            <!-- CTA Buttons -->
+            <div class="hero-actions" style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="browse.html" class="btn">Browse All Anime</a>
+                <a href="https://t.me/VengeanceSeekers" target="_blank" class="btn btn-secondary">Join Community</a>
+            </div>
+        </div>
+        
+        <!-- Animated Background Elements -->
+        <div class="hero-bg-elements">
+            <div class="floating-element" style="position: absolute; top: 20%; left: 10%; width: 100px; height: 100px; background: radial-gradient(circle, var(--neon-cyan) 0%, transparent 70%); border-radius: 50%; opacity: 0.1; animation: float 6s ease-in-out infinite;"></div>
+            <div class="floating-element" style="position: absolute; top: 60%; right: 15%; width: 150px; height: 150px; background: radial-gradient(circle, var(--cursed-purple) 0%, transparent 70%); border-radius: 50%; opacity: 0.1; animation: float 8s ease-in-out infinite reverse;"></div>
+            <div class="floating-element" style="position: absolute; bottom: 20%; left: 20%; width: 80px; height: 80px; background: radial-gradient(circle, var(--neon-crimson) 0%, transparent 70%); border-radius: 50%; opacity: 0.1; animation: float 7s ease-in-out infinite;"></div>
+        </div>
+    </section>
+
+    <!-- Featured Anime Section -->
+    <section class="featured-section" style="padding: 4rem 0; background: var(--secondary-bg);">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 3rem; font-size: 3rem; color: var(--neon-cyan);">Featured Anime</h2>
+            
+            <!-- Featured Carousel -->
+            <div class="featured-carousel carousel" style="margin-bottom: 4rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+                <div class="carousel-container">
+                    <div class="carousel-slide">
+                        <div style="position: relative; height: 400px; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=400&fit=crop') center/cover; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; text-align: center;">
+                            <div>
+                                <h3 style="font-size: 2.5rem; margin-bottom: 1rem;">Jujutsu Kaisen</h3>
+                                <p style="font-size: 1.2rem; margin-bottom: 2rem;">Experience the world of cursed energy and sorcery</p>
+                                <a href="anime.html?id=jjk001" class="btn">Watch Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div style="position: relative; height: 400px; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1606041008023-472dfb5e530f?w=800&h=400&fit=crop') center/cover; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; text-align: center;">
+                            <div>
+                                <h3 style="font-size: 2.5rem; margin-bottom: 1rem;">Attack on Titan</h3>
+                                <p style="font-size: 1.2rem; margin-bottom: 2rem;">Humanity's fight for survival against the Titans</p>
+                                <a href="anime.html?id=aot001" class="btn">Watch Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div style="position: relative; height: 400px; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=400&fit=crop') center/cover; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; text-align: center;">
+                            <div>
+                                <h3 style="font-size: 2.5rem; margin-bottom: 1rem;">Demon Slayer</h3>
+                                <p style="font-size: 1.2rem; margin-bottom: 2rem;">Join Tanjiro's quest to save his sister</p>
+                                <a href="anime.html?id=ds001" class="btn">Watch Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-controls carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="carousel-controls carousel-next"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            
+            <!-- Featured Grid -->
+            <div class="featured-grid grid grid-3"></div>
+        </div>
+    </section>
+
+    <!-- Popular This Week -->
+    <section class="popular-section" style="padding: 4rem 0;">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 3rem; font-size: 3rem; color: var(--cursed-purple);">Popular This Week</h2>
+            <div class="popular-grid grid grid-4">
+                <!-- Will be populated by JavaScript -->
+                <div class="anime-card animate-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=600&fit=crop" alt="Jujutsu Kaisen" loading="lazy">
+                    <div class="card-content">
+                        <h3 class="card-title">Jujutsu Kaisen</h3>
+                        <div class="card-meta">
+                            <span>2020</span>
+                            <span>★ 9.1</span>
+                            <span>Ongoing</span>
+                        </div>
+                        <div class="genre-tags">
+                            <span class="genre-tag">Action</span>
+                            <span class="genre-tag">Supernatural</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="anime-card animate-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1606041008023-472dfb5e530f?w=400&h=600&fit=crop" alt="Attack on Titan" loading="lazy">
+                    <div class="card-content">
+                        <h3 class="card-title">Attack on Titan</h3>
+                        <div class="card-meta">
+                            <span>2013</span>
+                            <span>★ 9.0</span>
+                            <span>Completed</span>
+                        </div>
+                        <div class="genre-tags">
+                            <span class="genre-tag">Action</span>
+                            <span class="genre-tag">Drama</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="anime-card animate-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=600&fit=crop" alt="Demon Slayer" loading="lazy">
+                    <div class="card-content">
+                        <h3 class="card-title">Demon Slayer</h3>
+                        <div class="card-meta">
+                            <span>2019</span>
+                            <span>★ 8.9</span>
+                            <span>Ongoing</span>
+                        </div>
+                        <div class="genre-tags">
+                            <span class="genre-tag">Action</span>
+                            <span class="genre-tag">Historical</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="anime-card animate-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=600&fit=crop" alt="One Piece" loading="lazy">
+                    <div class="card-content">
+                        <h3 class="card-title">One Piece</h3>
+                        <div class="card-meta">
+                            <span>1999</span>
+                            <span>★ 9.2</span>
+                            <span>Ongoing</span>
+                        </div>
+                        <div class="genre-tags">
+                            <span class="genre-tag">Adventure</span>
+                            <span class="genre-tag">Comedy</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Stats -->
+    <section class="stats-section" style="padding: 4rem 0; background: var(--secondary-bg);">
+        <div class="container">
+            <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; text-align: center;">
+                <div class="stat-item animate-on-scroll">
+                    <div style="font-size: 3rem; color: var(--neon-cyan); margin-bottom: 1rem;">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h3 style="font-size: 2rem; margin-bottom: 0.5rem;">1000+</h3>
+                    <p style="color: var(--text-secondary);">Episodes Available</p>
+                </div>
+                <div class="stat-item animate-on-scroll">
+                    <div style="font-size: 3rem; color: var(--cursed-purple); margin-bottom: 1rem;">
+                        <i class="fas fa-tv"></i>
+                    </div>
+                    <h3 style="font-size: 2rem; margin-bottom: 0.5rem;">50+</h3>
+                    <p style="color: var(--text-secondary);">Anime Series</p>
+                </div>
+                <div class="stat-item animate-on-scroll">
+                    <div style="font-size: 3rem; color: var(--neon-crimson); margin-bottom: 1rem;">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 style="font-size: 2rem; margin-bottom: 0.5rem;">10K+</h3>
+                    <p style="color: var(--text-secondary);">Active Users</p>
+                </div>
+                <div class="stat-item animate-on-scroll">
+                    <div style="font-size: 3rem; color: var(--neon-cyan); margin-bottom: 1rem;">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 style="font-size: 2rem; margin-bottom: 0.5rem;">24/7</h3>
+                    <p style="color: var(--text-secondary);">Streaming</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                <div>
+                    <h3 style="color: var(--neon-cyan); margin-bottom: 1rem;">AnimeZone</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.6;">Your ultimate destination for streaming the latest anime episodes. Experience the world of anime with cursed energy.</p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1rem;">Quick Links</h4>
+                    <ul style="list-style: none; color: var(--text-secondary);">
+                        <li style="margin-bottom: 0.5rem;"><a href="browse.html" style="color: inherit; text-decoration: none;">Browse Anime</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="watchlist.html" style="color: inherit; text-decoration: none;">My Watchlist</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="about.html" style="color: inherit; text-decoration: none;">About Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1rem;">Community</h4>
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="https://t.me/VengeanceSeekers" target="_blank" style="color: var(--neon-cyan); font-size: 1.5rem; transition: var(--transition);">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="https://t.me/Hellfirez3643" target="_blank" style="color: var(--neon-cyan); font-size: 1.5rem; transition: var(--transition);">
+                            <i class="fas fa-user"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div style="border-top: 1px solid var(--border-color); padding-top: 2rem; text-align: center;">
+                <p style="color: var(--text-secondary);">
+                    © 2025 AnimeZone — Crafted with cursed energy by 
+                    <a href="https://t.me/Hellfirez3643" target="_blank" style="color: var(--neon-cyan);">@Hellfirez3643</a> | 
+                    Community: <a href="https://t.me/VengeanceSeekers" target="_blank" style="color: var(--neon-cyan);">@VengeanceSeekers</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    
+    <!-- Additional animations -->
+    <script>
+        // Floating animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0%, 100% { transform: translateY(0px) rotate(0deg); }
+                33% { transform: translateY(-20px) rotate(120deg); }
+                66% { transform: translateY(10px) rotate(240deg); }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // GSAP animations
+        gsap.registerPlugin();
+        
+        // Hero text animation
+        gsap.from(".hero h1", {duration: 1, y: 50, opacity: 0, ease: "power2.out"});
+        gsap.from(".hero p", {duration: 1, y: 30, opacity: 0, delay: 0.3, ease: "power2.out"});
+        gsap.from(".search-container", {duration: 1, y: 30, opacity: 0, delay: 0.6, ease: "power2.out"});
+        gsap.from(".hero-actions", {duration: 1, y: 30, opacity: 0, delay: 0.9, ease: "power2.out"});
+        
+        // Scroll-triggered animations
+        gsap.utils.toArray(".animate-on-scroll").forEach((element, i) => {
+            gsap.from(element, {
+                duration: 0.8,
+                y: 50,
+                opacity: 0,
+                delay: i * 0.1,
+                scrollTrigger: {
+                    trigger: element,
+                    start: "top 80%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+    </script>
+</body>
+</html>

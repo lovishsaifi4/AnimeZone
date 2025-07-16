@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Anime - AnimeZone</title>
+    <meta name="description" content="Browse and discover anime series. Filter by genre, year, status and more.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="no-select">
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-content">
+            <div class="preloader-logo">AnimeZone</div>
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">AnimeZone</a>
+            <ul class="nav-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="browse.html"><i class="fas fa-th-large"></i> Browse</a></li>
+                <li><a href="watchlist.html"><i class="fas fa-bookmark"></i> Watchlist</a></li>
+                <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main style="margin-top: 80px; padding: 2rem 0;">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header" style="text-align: center; margin-bottom: 3rem;">
+                <h1 class="title-glitch" data-text="Browse Anime" style="font-size: 3rem; margin-bottom: 1rem;">Browse Anime</h1>
+                <p style="color: var(--text-secondary); font-size: 1.2rem;">Discover your next favorite anime series</p>
+            </div>
+
+            <!-- Search and Filters -->
+            <div class="browse-controls" style="display: grid; grid-template-columns: 300px 1fr; gap: 2rem; margin-bottom: 3rem;">
+                <!-- Filters Sidebar -->
+                <div class="filters">
+                    <h3 style="margin-bottom: 1.5rem; color: var(--neon-cyan);">
+                        <i class="fas fa-filter"></i> Filters
+                    </h3>
+                    
+                    <!-- Search -->
+                    <div class="filter-group">
+                        <label for="search-filter">Search</label>
+                        <input type="text" id="search-filter" class="search-bar" placeholder="Search anime..." style="width: 100%; border-radius: 10px;">
+                    </div>
+                    
+                    <!-- Genre Filter -->
+                    <div class="filter-group">
+                        <label>Genre</label>
+                        <div class="genre-filters" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); font-size: 0.9rem;">
+                                <input type="checkbox" class="genre-filter" value="Action">
+                                Action
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); font-size: 0.9rem;">
+                                <input type="checkbox" class="genre-filter" value="Adventure">
+                                Adventure
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); font-size: 0.9rem;">
+                                <input type="checkbox" class="genre-filter" value="Comedy">
+                                Comedy
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); font-size: 0.9rem;">
+                                <input type="checkbox" class="genre-filter" value="Drama">
+                                Drama
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); font-size: 0.9rem;">
+                                <input type="checkbox" class="genre-filter" value="Historical">
+                                Historical
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); font-size: 0.9rem;">
+                                <input type="checkbox" class="genre-filter" value="Military">
+                                Military
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); font-size: 0.9rem;">
+                                <input type="checkbox" class="genre-filter" value="Ninja">
+                                Ninja
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); font-size: 0.9rem;">
+                                <input type="checkbox" class="genre-filter" value="School">
+                                School
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); font-size: 0.9rem;">
+                                <input type="checkbox" class="genre-filter" value="Superhero">
+                                Superhero
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); font-size: 0.9rem;">
+                                <input type="checkbox" class="genre-filter" value="Supernatural">
+                                Supernatural
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Status Filter -->
+                    <div class="filter-group">
+                        <label for="status-filter">Status</label>
+                        <select id="status-filter" class="filter-select status-filter">
+                            <option value="all">All Status</option>
+                            <option value="Ongoing">Ongoing</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Year Filter -->
+                    <div class="filter-group">
+                        <label for="year-filter">Year</label>
+                        <select id="year-filter" class="filter-select year-filter">
+                            <option value="all">All Years</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                            <option value="2022">2022</option>
+                            <option value="2021">2021</option>
+                            <option value="2020">2020</option>
+                            <option value="2019">2019</option>
+                            <option value="2018">2018</option>
+                            <option value="2017">2017</option>
+                            <option value="2016">2016</option>
+                            <option value="2015">2015</option>
+                            <option value="2013">2013</option>
+                            <option value="2002">2002</option>
+                            <option value="1999">1999</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Type Filter -->
+                    <div class="filter-group">
+                        <label for="type-filter">Type</label>
+                        <select id="type-filter" class="filter-select type-filter">
+                            <option value="all">All Types</option>
+                            <option value="Series">Series</option>
+                            <option value="Movie">Movie</option>
+                            <option value="OVA">OVA</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Clear Filters -->
+                    <button class="btn" onclick="clearFilters()" style="width: 100%; margin-top: 1rem;">
+                        <i class="fas fa-times"></i> Clear Filters
+                    </button>
+                </div>
+                
+                <!-- Main Content Area -->
+                <div class="browse-main">
+                    <!-- Results Info -->
+                    <div class="results-info" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding: 1rem; background: var(--secondary-bg); border-radius: 10px;">
+                        <div>
+                            <span id="results-count" style="color: var(--neon-cyan); font-weight: 600;">Loading...</span>
+                            <span style="color: var(--text-secondary);"> anime found</span>
+                        </div>
+                        <div class="view-options" style="display: flex; gap: 0.5rem;">
+                            <button class="view-btn active" data-view="grid" style="padding: 0.5rem; background: var(--cursed-purple); border: none; color: white; border-radius: 5px; cursor: pointer;">
+                                <i class="fas fa-th"></i>
+                            </button>
+                            <button class="view-btn" data-view="list" style="padding: 0.5rem; background: var(--accent-bg); border: none; color: white; border-radius: 5px; cursor: pointer;">
+                                <i class="fas fa-list"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Anime Grid -->
+                    <div class="anime-grid grid grid-3" id="anime-grid">
+                        <!-- Will be populated by JavaScript -->
+                        <div class="loading">
+                            <div class="loading-spinner"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Load More Button -->
+                    <div class="load-more-container" style="text-align: center; margin-top: 3rem;">
+                        <button class="btn load-more-btn" style="display: none;">
+                            <i class="fas fa-plus"></i> Load More
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                <div>
+                    <h3 style="color: var(--neon-cyan); margin-bottom: 1rem;">AnimeZone</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.6;">Your ultimate destination for streaming the latest anime episodes. Experience the world of anime with cursed energy.</p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1rem;">Quick Links</h4>
+                    <ul style="list-style: none; color: var(--text-secondary);">
+                        <li style="margin-bottom: 0.5rem;"><a href="browse.html" style="color: inherit; text-decoration: none;">Browse Anime</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="watchlist.html" style="color: inherit; text-decoration: none;">My Watchlist</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="about.html" style="color: inherit; text-decoration: none;">About Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1rem;">Community</h4>
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="https://t.me/VengeanceSeekers" target="_blank" style="color: var(--neon-cyan); font-size: 1.5rem; transition: var(--transition);">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="https://t.me/Hellfirez3643" target="_blank" style="color: var(--neon-cyan); font-size: 1.5rem; transition: var(--transition);">
+                            <i class="fas fa-user"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div style="border-top: 1px solid var(--border-color); padding-top: 2rem; text-align: center;">
+                <p style="color: var(--text-secondary);">
+                    © 2025 AnimeZone — Crafted with cursed energy by 
+                    <a href="https://t.me/Hellfirez3643" target="_blank" style="color: var(--neon-cyan);">@Hellfirez3643</a> | 
+                    Community: <a href="https://t.me/VengeanceSeekers" target="_blank" style="color: var(--neon-cyan);">@VengeanceSeekers</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    
+    <script>
+        // Clear filters function
+        function clearFilters() {
+            // Clear checkboxes
+            document.querySelectorAll('.genre-filter').forEach(cb => cb.checked = false);
+            
+            // Reset selects
+            document.querySelectorAll('.filter-select').forEach(select => select.value = 'all');
+            
+            // Clear search
+            document.getElementById('search-filter').value = '';
+            
+            // Trigger filter update
+            applyFilters();
+        }
+        
+        // View toggle functionality
+        document.querySelectorAll('.view-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const view = btn.dataset.view;
+                const grid = document.getElementById('anime-grid');
+                
+                if (view === 'list') {
+                    grid.className = 'anime-grid grid-list';
+                } else {
+                    grid.className = 'anime-grid grid grid-3';
+                }
+            });
+        });
+        
+        // Update results count
+        document.addEventListener('animeDataLoaded', () => {
+            updateResultsCount();
+        });
+        
+        function updateResultsCount() {
+            const grid = document.getElementById('anime-grid');
+            const count = grid.querySelectorAll('.anime-card').length;
+            document.getElementById('results-count').textContent = count;
+        }
+        
+        // Override applyFilters to update count
+        const originalApplyFilters = window.applyFilters;
+        window.applyFilters = function() {
+            if (originalApplyFilters) {
+                originalApplyFilters();
+            }
+            setTimeout(updateResultsCount, 100);
+        };
+        
+        // Search filter functionality
+        document.getElementById('search-filter').addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.anime-card');
+            
+            cards.forEach(card => {
+                const title = card.querySelector('.card-title').textContent.toLowerCase();
+                const genres = Array.from(card.querySelectorAll('.genre-tag')).map(tag => tag.textContent.toLowerCase());
+                
+                const matches = title.includes(query) || genres.some(genre => genre.includes(query));
+                card.style.display = matches ? 'block' : 'none';
+            });
+            
+            updateResultsCount();
+        });
+    </script>
+    
+    <!-- Responsive CSS -->
+    <style>
+        @media (max-width: 768px) {
+            .browse-controls {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .filters {
+                order: 2;
+                margin-top: 2rem;
+            }
+            
+            .browse-main {
+                order: 1;
+            }
+            
+            .genre-filters {
+                grid-template-columns: 1fr !important;
+            }
+        }
+        
+        .grid-list {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 1rem !important;
+        }
+        
+        .grid-list .anime-card {
+            display: flex !important;
+            flex-direction: row !important;
+            max-width: none !important;
+        }
+        
+        .grid-list .anime-card img {
+            width: 150px !important;
+            height: 200px !important;
+            flex-shrink: 0 !important;
+        }
+        
+        .grid-list .card-content {
+            flex: 1 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+        }
+    </style>
+</body>
+</html>
