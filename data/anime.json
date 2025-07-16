@@ -3,8 +3,8 @@
     {
       "id": "jjk001",
       "title": "Jujutsu Kaisen",
-      "poster": "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=600&fit=crop",
-      "banner": "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1200&h=400&fit=crop",
+      "poster": "https://image.tmdb.org/t/p/w1280/fHpKWq9ayzSk8nSwqRuaAUemRKh.jpg",
+      "banner": "https://image.tmdb.org/t/p/w1280/fHpKWq9ayzSk8nSwqRuaAUemRKh.jpg",
       "genre": ["Action", "Supernatural", "School"],
       "type": "Series",
       "status": "Ongoing",
